@@ -33,7 +33,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/lamaran', function () {
         return view('admin.lamaran-masuk');
     })->name('admin.lamaran-masuk');
-     Route::get('/admin/detail-profile', function () {
+    Route::get('/admin/detail-profile', function () {
         return view('admin.detail-profile');
     })->name('admin.detail-profile');
 });
@@ -59,4 +59,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
