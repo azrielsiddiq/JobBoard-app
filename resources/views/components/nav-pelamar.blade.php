@@ -33,7 +33,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href=""
+                        <a href="{{ route('pelamar.profil') }}"
                             class="hover:text-purple-600 transition {{ request()->routeIs('pelamar.profil') ? 'text-purple-600 font-semibold' : '' }}">
                             Profil
                         </a>
