@@ -6,43 +6,63 @@ use App\Models\Lamaran;
 use App\Models\Lowongan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LamaranController extends Controller
 {
-
     public function index()
     {
-    $lamaran = Lamaran::with('lowongan')
-                ->where('user_id', Auth::id())
-                ->latest()
-                ->get();
+        $lamaran = Lamaran::with('lowongan')
+                    ->where('user_id', Auth::id())
+                    ->latest()
+                    ->get();
 
-    return view('pelamar.riwayat', compact('lamaran'));
-}
-
+        return view('pelamar.riwayat', compact('lamaran'));
+    }
 
     public function store(Request $request, Lowongan $lowongan)
     {
-        // Cek jika profil pelamar sudah lengkap
+        // Cek jika profil belum lengkap
         if (!Auth::user()->profil) {
-            return redirect()->route('pelamar.profil.create')->with('error', 'Silakan lengkapi profil terlebih dahulu.');
+            Alert::warning('Profil Belum Lengkap', 'Silakan lengkapi profil Anda terlebih dahulu sebelum melamar.');
+            return redirect()->route('pelamar.profil.create');
         }
 
-        // Cek apakah sudah pernah melamar
-        $sudahMelamar = Lamaran::where('user_id', Auth::id())
-                            ->where('lowongan_id', $lowongan->id)
-                            ->exists();
+        $userId = Auth::id();
 
-        if ($sudahMelamar) {
-            return redirect()->back()->with('error', 'Kamu sudah melamar lowongan ini.');
+        // Cek apakah user memiliki lamaran aktif (selain "Ditolak")
+        $lamaranAktif = Lamaran::where('user_id', $userId)
+            ->whereIn('status', ['Pending', 'Interview', 'Diterima'])
+            ->first();
+
+        if ($lamaranAktif) {
+            if ($lamaranAktif->status === 'Diterima') {
+                Alert::info('Sudah Diterima', 'Anda sudah diterima di salah satu lowongan. Tidak dapat melamar lagi.');
+                return redirect()->back();
+            }
+
+            Alert::warning('Lamaran Masih Diproses', 'Anda sudah memiliki lamaran yang sedang diproses. Silakan tunggu hingga statusnya "Ditolak" untuk melamar kembali.');
+            return redirect()->back();
         }
 
+        // Cek jika sudah pernah melamar ke lowongan ini
+        $sudahMelamarSama = Lamaran::where('user_id', $userId)
+            ->where('lowongan_id', $lowongan->id)
+            ->exists();
+
+        if ($sudahMelamarSama) {
+            Alert::info('Sudah Pernah Melamar', 'Anda sudah pernah melamar ke lowongan ini.');
+            return redirect()->back();
+        }
+
+        // Simpan lamaran baru
         Lamaran::create([
-            'user_id' => Auth::id(),
+            'user_id' => $userId,
             'lowongan_id' => $lowongan->id,
             'status' => 'Pending',
         ]);
 
-        return redirect()->route('pelamar.riwayat')->with('success', 'Lamaran berhasil dikirim.');
+        Alert::success('Lamaran Berhasil', 'Lamaran Anda telah berhasil dikirim.');
+        return redirect()->route('pelamar.riwayat');
     }
 }

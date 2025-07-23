@@ -3,9 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Lamaran;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfilController extends Controller
 {
+
+public function showForAdmin(User $user)
+{
+    $profil = $user->profil;
+
+    // Ambil lamaran yang dimiliki user ini
+    $lamaran = Lamaran::where('user_id', $user->id)->latest()->first();
+
+    return view('admin.detail-profile', compact('user', 'profil', 'lamaran'));
+}
+
     public function create()
 {
     return view('pelamar.form-profil');
@@ -40,7 +54,8 @@ public function store(Request $request)
     $profil->is_complete = true;
     $profil->save();
 
-    return redirect()->route('pelamar.dashboard')->with('success', 'Profil berhasil disimpan.');
+    Alert::success('Success Title', 'Profil berhasil disimpan.');
+    return redirect()->route('pelamar.dashboard');
 }
 
 public function show()
@@ -89,7 +104,8 @@ $validated = $request->validate([
     $profil->is_complete = true;
     $profil->save();
 
-    return redirect()->route('pelamar.profil')->with('success', 'Profil berhasil diperbarui.');
+    Alert::success('Success Title', 'Profil berhasil diperbarui.');
+    return redirect()->route('pelamar.profil');
 }
 
 

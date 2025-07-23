@@ -32,6 +32,27 @@ class Lowongan extends Model
         'tanggal_berakhir' => 'date',
     ];
 
+     public function getStatusLowonganAttribute()
+    {
+        if (!$this->status) {
+            return 'Tidak Aktif';
+        }
+
+        if ($this->tanggal_berakhir && now()->gt($this->tanggal_berakhir)) {
+            return 'Tidak Aktif';
+        }
+
+        return 'Aktif';
+    }
+
+    public function scopeAktif($query)
+    {
+        return $query->where('status', true)
+            ->where(function ($q) {
+                $q->whereNull('tanggal_berakhir')->orWhere('tanggal_berakhir', '>=', now());
+            });
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -1,52 +1,50 @@
 <footer class="footer">
-    <div class="section__container footer__container">
-      <div class="footer__col">
-        <div class="footer__logo">
-          <a href="#" class="logo">Job<span>Hunt</span></a>
-        </div>
-        <p>
-          Our platform is designed to help you find the perfect job and
-          achieve your professional dreams.
-        </p>
+  <div class="section__container footer__container">
+    <div class="footer__col">
+      <div class="footer__logo">
+        <a href="#" class="logo">Lunera Labs.</a>
       </div>
-      <div class="footer__col">
-        <h4>Quick Links</h4>
-        <ul class="footer__links">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Jobs</a></li>
-          <li><a href="#">Testimonials</a></li>
-          <li><a href="#">Contact Us</a></li>
-        </ul>
-      </div>
-      <div class="footer__col">
-        <h4>Follow Us</h4>
-        <ul class="footer__links">
-          <li><a href="#">Facebook</a></li>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">LinkedIn</a></li>
-          <li><a href="#">Twitter</a></li>
-          <li><a href="#">Youtube</a></li>
-        </ul>
-      </div>
-      <div class="footer__col">
-        <h4>Contact Us</h4>
-        <ul class="footer__links">
-          <li>
-            <a href="#">
-              <span><i class="ri-phone-fill"></i></span> +91 234 56788
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span><i class="ri-map-pin-2-fill"></i></span> 123 Main Street,
-              Anytown, USA
-            </a>
-          </li>
-        </ul>
-      </div>
+      <p>
+        Lunera Labs adalah perusahaan IT yang berfokus pada solusi digital dan inovasi teknologi untuk masa depan yang lebih baik.
+      </p>
     </div>
-    <div class="footer__bar">
-      Copyright © 2024 Web Design Mastery. All rights reserved.
+    <div class="footer__col">
+      <h4>Quick Links</h4>
+      <ul class="footer__links">
+        <li><a href="#">Beranda</a></li>
+        <li><a href="#">Tentang Kami</a></li>
+        <li><a href="#">Layanan</a></li>
+        <li><a href="#">Proyek</a></li>
+        <li><a href="#">Kontak</a></li>
+      </ul>
     </div>
-  </footer>
+    <div class="footer__col">
+      <h4>Ikuti Kami</h4>
+      <ul class="footer__links">
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">Twitter</a></li>
+        <li><a href="#">YouTube</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Hubungi Kami</h4>
+      <ul class="footer__links">
+        <li>
+          <a href="#">
+            <span><i class="ri-phone-fill"></i></span> +62 812 3456 7890
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span><i class="ri-map-pin-2-fill"></i></span> Jl. Inovasi No. 99, Jakarta, Indonesia
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bar">
+    Copyright © 2024 Lunera Labs. All rights reserved.
+  </div>
+</footer>

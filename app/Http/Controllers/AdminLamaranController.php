@@ -5,23 +5,34 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Lamaran;
 use App\Models\Lowongan;
+use App\Models\User;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminLamaranController extends Controller
 {
     public function index(Request $request)
-    {
-        $lowongans = Lowongan::all();
+{
+    $lowongans = Lowongan::all();
+    $query = Lamaran::with(['user.profil', 'lowongan'])->latest();
 
-        $query = Lamaran::with(['user.profil', 'lowongan'])->latest();
-
-        if ($request->filled('lowongan')) {
-            $query->where('lowongan_id', $request->lowongan);
-        }
-
-        $lamarans = $query->get();
-
-        return view('admin.lamaran-masuk', compact('lamarans', 'lowongans'));
+    if ($request->filled('lowongan')) {
+        $query->where('lowongan_id', $request->lowongan);
     }
+
+    // ⬇️ Default status = 'Pending' jika status belum dipilih
+    if ($request->filled('status')) {
+        $query->where('status', $request->status);
+        $status = $request->status;
+    } else {
+        $query->where('status', 'Pending');
+        $status = 'Pending';
+    }
+
+    $lamarans = $query->get();
+
+    return view('admin.lamaran-masuk', compact('lamarans', 'lowongans', 'status'));
+}
+
 
     public function updateStatus(Request $request, Lamaran $lamaran)
     {
@@ -32,6 +43,7 @@ class AdminLamaranController extends Controller
         $lamaran->status = $request->status;
         $lamaran->save();
 
-        return back()->with('success', 'Status lamaran berhasil diperbarui.');
+        Alert::success('Berhasil', 'Status lamaran berhasil diperbarui!');
+        return back();
     }
 }

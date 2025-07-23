@@ -1,72 +1,111 @@
 @extends('layouts.admin')
 
+@section('title', 'Candidate Profile – Admin | Lunera Labs')
+
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-white via-indigo-50 to-purple-100 px-6 py-12">
-    <div class="max-w-4xl mx-auto space-y-10">
 
-        <!-- Header -->
-        <div class="flex items-center justify-between">
-            <div>
-                <h1 class="text-3xl font-extrabold text-gray-900">👤 Detail Pelamar</h1>
-                <p class="text-sm text-gray-600 mt-1">Informasi lengkap mengenai pelamar untuk posisi <strong>UI/UX Designer</strong>.</p>
+    @if (session('error'))
+        <div class="max-w-3xl mx-auto mt-6">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Gagal!</strong>
+                <span class="block sm:inline">{{ session('error') }}</span>
             </div>
-            <a href="{{ route('admin.lowongan') }}" class="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:underline">
-                ← Kembali
-            </a>
         </div>
+    @endif
 
-        <!-- Card Profil -->
-        <div class="bg-white rounded-3xl shadow-xl border border-gray-200 p-8 space-y-6">
-            <div class="flex items-center gap-6">
-                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Foto" class="w-20 h-20 rounded-full object-cover shadow-md">
+    @if (session('success'))
+        <div class="max-w-3xl mx-auto mt-6">
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Berhasil!</strong>
+                <span class="block sm:inline">{{ session('success') }}</span>
+            </div>
+        </div>
+    @endif
+
+    <div class="min-h-screen bg-gradient-to-b from-indigo-50 via-white to-white px-6 py-12">
+        <div class="max-w-5xl mx-auto space-y-10">
+
+            <div class="flex items-center justify-between">
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-800">Aisyah Putri</h2>
-                    <p class="text-sm text-gray-500">aisyah@example.com</p>
-                    <p class="text-sm text-gray-500 mt-1">📍 Jakarta</p>
+                    <h1 class="text-3xl font-extrabold text-gray-900">👤 Detail Pelamar</h1>
+                    <p class="text-sm text-gray-600 mt-1">
+                        Informasi lengkap pelamar untuk posisi
+                        <strong>{{ $lamaran->lowongan->judul ?? '—' }}</strong>.
+                    </p>
                 </div>
             </div>
 
-            <!-- Info Tambahan -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
-                <div>
-                    <p class="font-medium text-gray-500">Pendidikan Terakhir</p>
-                    <p class="text-gray-800">S1 Desain Komunikasi Visual</p>
+            <div class="bg-white rounded-3xl shadow-xl border border-gray-200 p-8 space-y-6">
+                <div class="flex flex-col sm:flex-row items-center gap-6">
+                    <div class="text-center sm:text-left">
+                        <h2 class="text-2xl font-bold text-gray-800">{{ $user->name }}</h2>
+                        <p class="text-sm text-gray-500">{{ $user->email }}</p>
+                        <p class="text-sm text-gray-500 mt-1">📍 {{ $profil->alamat ?? '-' }}</p>
+                    </div>
                 </div>
-                <div>
-                    <p class="font-medium text-gray-500">Tanggal Melamar</p>
-                    <p class="text-gray-800">12 Juni 2025</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-700 mt-4">
+                    <div>
+                        <p class="font-medium text-gray-500">📞 Nomor Telepon</p>
+                        <p class="text-gray-800">{{ $profil->nomor_telepon }}</p>
+                    </div>
+                    <div>
+                        <p class="font-medium text-gray-500">🎂 Tanggal Lahir</p>
+                        <p class="text-gray-800">
+                            {{ \Carbon\Carbon::parse($profil->tanggal_lahir)->translatedFormat('d F Y') }}</p>
+                    </div>
+                    <div>
+                        <p class="font-medium text-gray-500">👫 Jenis Kelamin</p>
+                        <p class="text-gray-800">{{ $profil->jenis_kelamin }}</p>
+                    </div>
+                    <div>
+                        <p class="font-medium text-gray-500">💍 Status Perkawinan</p>
+                        <p class="text-gray-800">{{ $profil->status_perkawinan }}</p>
+                    </div>
                 </div>
-                <div>
-                    <p class="font-medium text-gray-500">CV</p>
-                    <a href="#" class="text-indigo-600 hover:underline">Unduh CV</a>
-                </div>
-                <div>
-                    <p class="font-medium text-gray-500">Portofolio</p>
-                    <a href="https://behance.net/aisyahputri" class="text-indigo-600 hover:underline" target="_blank">Lihat Portofolio</a>
-                </div>
-            </div>
 
-            <!-- Status Lamaran -->
-            <div>
-                <label class="block text-sm font-medium text-gray-600 mb-1">Status Lamaran</label>
-                <select class="w-full md:w-1/2 px-4 py-2 rounded-lg border border-gray-300 shadow-sm focus:ring-indigo-400 text-sm">
-                    <option>Pending</option>
-                    <option selected>Interview</option>
-                    <option>Diterima</option>
-                    <option>Ditolak</option>
-                </select>
-            </div>
-
-            <!-- Aksi -->
-            <div class="flex justify-end gap-4 pt-4 border-t">
-                <a href="mailto:aisyah@example.com" class="inline-flex items-center px-4 py-2 text-sm rounded-lg bg-indigo-600 text-white hover:bg-indigo-700">
-                    Hubungi via Email
-                </a>
-                <a href="#" class="inline-flex items-center px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100">
-                    Kembali ke Daftar Pelamar
-                </a>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-700 mt-4">
+                    <div>
+                        <p class="font-medium text-gray-500">🎓 Pendidikan Terakhir</p>
+                        <p class="text-gray-800">{{ $profil->pendidikan_terakhir ?? '-' }}</p>
+                    </div>
+                    <div>
+                        <p class="font-medium text-gray-500">🗓️ Tanggal Melamar</p>
+                        <p class="text-gray-800">{{ $lamaran->created_at->translatedFormat('d F Y') }}</p>
+                    </div>
+                    <div>
+                        <p class="font-medium text-gray-500">📄 CV</p>
+                        @if ($profil->cv)
+                            <a href="{{ asset('storage/' . $profil->cv) }}" target="_blank"
+                                class="text-indigo-600 hover:underline">Lihat CV</a>
+                        @else
+                            <p class="text-gray-400 italic">Belum diunggah</p>
+                        @endif
+                    </div>
+                    <div>
+                        <p class="font-medium text-gray-500">🌐 Portofolio</p>
+                        @if ($profil->portfolio)
+                            <a href="{{ $profil->portfolio }}" target="_blank"
+                                class="text-indigo-600 hover:underline">Lihat Portofolio</a>
+                        @else
+                            <p class="text-gray-400 italic">Tidak tersedia</p>
+                        @endif
+                    </div>
+                    <div class="md:col-span-2">
+                        <p class="font-medium text-gray-500">💼 Pengalaman Kerja</p>
+                        <p class="text-gray-800 mt-1">{{ $profil->pengalaman_kerja ?? '-' }}</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap justify-end gap-4 pt-6 border-t mt-4">
+                    <a href="mailto:{{ $user->email }}"
+                        class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg bg-indigo-600 text-white hover:bg-indigo-700">
+                        📧 Hubungi via Email
+                    </a>
+                    <a href="{{ route('admin.lamaran-masuk') }}"
+                        class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100">
+                        ← Kembali ke Daftar
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 @endsection

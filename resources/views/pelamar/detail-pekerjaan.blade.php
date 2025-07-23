@@ -4,7 +4,6 @@
 
 @section('content')
     <x-nav-pelamar>
-
         <div class="bg-[#f9fafb] min-h-screen pt-20 pb-24 font-sans text-gray-900">
             <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
                 <div class="lg:col-span-2 space-y-12">
@@ -16,7 +15,7 @@
                             {{ $lowongan->judul }}
                         </span>
                         <h1 class="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight">
-                            Bergabung dengan <span class="text-purple-600">YouthWare</span>
+                            Bergabung dengan <span class="text-purple-600">Lanera Labs.</span>
                         </h1>
                         <p class="text-sm text-gray-500">
                             Diposting: {{ \Carbon\Carbon::parse($lowongan->tanggal_diposting)->translatedFormat('d F Y') }}
@@ -52,32 +51,23 @@
                     </div>
 
                     <!-- Deskripsi -->
-                    <section class="space-y-6">
+                    <section class="space-y-6 prose max-w-none">
                         <div>
                             <h2 class="text-xl font-bold mb-2">Tentang Pekerjaan</h2>
-                            <p class="text-gray-700 leading-relaxed">
-                                {!! nl2br(e($lowongan->deskripsi)) !!}
-                            </p>
+                            {!! $lowongan->deskripsi !!}
                         </div>
 
                         <div>
                             <h2 class="text-xl font-bold mb-2">Tanggung Jawab</h2>
-                            <ul class="list-disc list-inside text-gray-700 space-y-1">
-                                @foreach (explode("\n", $lowongan->tanggung_jawab) as $item)
-                                    <li>{{ $item }}</li>
-                                @endforeach
-                            </ul>
+                            {!! $lowongan->tanggung_jawab !!}
                         </div>
 
                         <div>
                             <h2 class="text-xl font-bold mb-2">Kualifikasi</h2>
-                            <ul class="list-disc list-inside text-gray-700 space-y-1">
-                                @foreach (explode("\n", $lowongan->kualifikasi) as $item)
-                                    <li>{{ $item }}</li>
-                                @endforeach
-                            </ul>
+                            {!! $lowongan->kualifikasi !!}
                         </div>
                     </section>
+
                 </div>
 
                 <!-- Sidebar -->
@@ -88,7 +78,8 @@
                             <p class="text-sm text-gray-500 mt-1">Kami tunggu lamaran terbaikmu.</p>
                         </div>
 
-                        <form action="{{ route('pelamar.lamar', $lowongan->id) }}" method="POST">
+                        <form id="lamarForm" action="{{ route('pelamar.lamar', $lowongan->id) }}" method="POST"
+                            onsubmit="return confirm('Apakah anda yakin ingin melamar di posisi ini?')">
                             @csrf
                             <button type="submit"
                                 class="block w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-center py-3 rounded-lg font-medium transition-all">
@@ -97,10 +88,7 @@
                         </form>
                     </div>
                 </aside>
-
-
             </div>
         </div>
-
     </x-nav-pelamar>
 @endsection

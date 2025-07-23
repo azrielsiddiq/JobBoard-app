@@ -6,6 +6,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LowonganController;
 use App\Http\Controllers\LamaranController;
 use App\Http\Controllers\AdminLamaranController;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminPenggunaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +15,7 @@ use App\Http\Controllers\AdminLamaranController;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('landing');
+Route::get('/', [LowonganController::class, 'LandingPage'])->name('beranda');
 
 /*
 |--------------------------------------------------------------------------
@@ -41,10 +41,15 @@ Route::get('/redirect', function () {
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     // Dashboard
-    Route::view('/dashboard', 'admin.dashboard')->name('dashboard');
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
-    // Akun pelamar
-    Route::view('/akun-pelamar', 'admin.akun-pelamar')->name('akun-pelamar');
+    // Akun
+    Route::get('/pengguna', [AdminPenggunaController::class, 'index'])->name('pengguna');
+    Route::get('/pengguna/tambah', [AdminPenggunaController::class, 'create'])->name('pengguna.create');
+    Route::post('/pengguna/simpan', [AdminPenggunaController::class, 'store'])->name('pengguna.store');
+    Route::get('/pengguna/edit/{id}', [AdminPenggunaController::class, 'edit'])->name('pengguna.edit');
+    Route::put('/pengguna/update/{id}', [AdminPenggunaController::class, 'update'])->name('pengguna.update');
+    Route::post('/pengguna/{id}', [AdminPenggunaController::class, 'destroy'])->name('pengguna.destroy');
 
     // Detail profil pelamar
     Route::view('/detail-profile', 'admin.detail-profile')->name('detail-profile');
@@ -60,6 +65,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Lamaran Masuk
     Route::get('/lamaran', [AdminLamaranController::class, 'index'])->name('lamaran-masuk');
     Route::put('/lamaran/{lamaran}/status', [AdminLamaranController::class, 'updateStatus'])->name('lamaran.status');
+
+   
+
+    Route::get('/detail-profile/{user}', [ProfilController::class, 'showForAdmin'])->name('detail-profile');
 
 });
 
