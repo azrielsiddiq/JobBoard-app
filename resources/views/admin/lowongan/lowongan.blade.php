@@ -10,7 +10,7 @@
                 <div>
                     <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">🚀 Kelola Lowongan</h1>
                     <p class="text-base text-gray-600 mt-1">Kelola semua posisi yang tersedia di <span
-                            class="font-semibold text-indigo-600">YouthWare</span>.</p>
+                            class="font-semibold text-indigo-600">Lunera Labs.</span>.</p>
                 </div>
                 <a href="{{ route('admin.lowongan.create') }}"
                     class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white rounded-xl text-sm font-bold shadow-md hover:scale-105 hover:shadow-xl transition">

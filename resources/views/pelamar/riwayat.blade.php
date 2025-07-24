@@ -3,14 +3,13 @@
 @section('title', 'Riwayat Lamaran')
 
 @section('content')
-    <x-nav-pelamar>
         <section class="min-h-screen bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
             <div class="max-w-5xl mx-auto space-y-10">
 
                 <!-- Heading -->
                 <div class="mb-6">
                     <h1 class="text-3xl md:text-4xl font-bold text-gray-900">📄 Riwayat Lamaran</h1>
-                    <p class="text-sm text-gray-500 mt-1">Semua lamaran kamu di <strong>PT YouthWare Indonesia</strong>.</p>
+                    <p class="text-sm text-gray-500 mt-1">Semua lamaran kamu di <strong>Lunera Labs.</strong>.</p>
                 </div>
 
                 <!-- Card Tahapan Pelamaran -->
@@ -110,5 +109,4 @@
 
             </div>
         </section>
-    </x-nav-pelamar>
 @endsection

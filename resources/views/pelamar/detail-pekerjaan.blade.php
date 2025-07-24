@@ -3,7 +3,7 @@
 @section('title', 'Detail Pekerjaan')
 
 @section('content')
-    <x-nav-pelamar>
+
         <div class="bg-[#f9fafb] min-h-screen pt-20 pb-24 font-sans text-gray-900">
             <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
                 <div class="lg:col-span-2 space-y-12">
@@ -90,5 +90,4 @@
                 </aside>
             </div>
         </div>
-    </x-nav-pelamar>
 @endsection

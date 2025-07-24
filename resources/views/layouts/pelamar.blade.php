@@ -19,8 +19,15 @@
     <title>@yield('title', 'Temukan Lowongan Pekerjaan')</title>
 </head>
 <body class="font-[Poppins] bg-gray-100 text-gray-800">
-    @yield('content')
+   @include('components.nav-pelamar')
 
+  <main>
+    <div id="content">
+    @yield('content')
+  </div>
+  </main>
+
+  
     @include('sweetalert::alert')
 </body>
 

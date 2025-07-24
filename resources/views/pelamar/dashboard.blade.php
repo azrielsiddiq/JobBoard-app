@@ -3,8 +3,6 @@
 @section('title', 'Dashboard – Pelamar | Lunera Labs')
 
 @section('content')
-    <x-nav-pelamar>
-
         <!-- Hero Section -->
         <section class="relative bg-[#fafafa] py-28 overflow-hidden">
             <div
@@ -27,7 +25,7 @@
             </div>
         </section>
 
-        <!-- Tentang YouthWare -->
+        <!-- Tentang Kami -->
         <section class="bg-white py-20 border-b border-gray-100">
             <div class="max-w-5xl mx-auto px-6 text-center">
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">Siapa Kami?</h2>
@@ -102,6 +100,4 @@
 
             </div>
         </section>
-
-    </x-nav-pelamar>
 @endsection

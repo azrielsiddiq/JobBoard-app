@@ -58,29 +58,45 @@ public function LandingPage()
     }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'judul' => 'required|string|max:255',
-            'deskripsi' => 'required|string',
-            'lokasi' => 'required|string|max:100',
-            'tipe' => 'required|in:Full-time,Part-time',
-            'gaji' => 'required|integer|min:0',
-            'level' => 'required|in:Intern,Junior,Mid,Senior',
-            'kualifikasi' => 'required|string',
-            'tanggung_jawab' => 'required|string',
-            'tanggal_berakhir' => 'nullable|date|after_or_equal:today',
-        ]);
+{
+    $validated = $request->validate([
+        'judul' => 'required|string|max:255',
+        'deskripsi' => 'required|string',
+        'lokasi' => 'required|string|max:100',
+        'tipe' => 'required|in:Full-time,Part-time',
+        'gaji' => 'required|integer|min:0',
+        'level' => 'required|in:Intern,Junior,Mid,Senior',
+        'kualifikasi' => 'required|string',
+        'tanggung_jawab' => 'required|string',
+        'tanggal_berakhir' => 'nullable|date|after_or_equal:today',
+    ], [
+        'judul.required' => 'Judul lowongan wajib diisi.',
+        'deskripsi.required' => 'Deskripsi lowongan wajib diisi.',
+        'lokasi.required' => 'Lokasi wajib diisi.',
+        'tipe.required' => 'Tipe pekerjaan wajib dipilih.',
+        'tipe.in' => 'Tipe pekerjaan harus berupa Full-time atau Part-time.',
+        'gaji.required' => 'Gaji wajib diisi.',
+        'gaji.integer' => 'Gaji harus berupa angka.',
+        'gaji.min' => 'Gaji tidak boleh kurang dari 0.',
+        'level.required' => 'Level pekerjaan wajib dipilih.',
+        'level.in' => 'Level harus salah satu dari Intern, Junior, Mid, atau Senior.',
+        'kualifikasi.required' => 'Kualifikasi wajib diisi.',
+        'tanggung_jawab.required' => 'Tanggung jawab wajib diisi.',
+        'tanggal_berakhir.date' => 'Tanggal berakhir harus berupa tanggal yang valid.',
+        'tanggal_berakhir.after_or_equal' => 'Tanggal berakhir tidak boleh sebelum hari ini.',
+    ]);
 
-        $validated['slug'] = Str::slug($request->judul);
-        $validated['tanggal_diposting'] = now();
-        $validated['user_id'] = auth()->id();
-        $validated['status'] = true;
+    $validated['slug'] = Str::slug($request->judul);
+    $validated['tanggal_diposting'] = now();
+    $validated['user_id'] = auth()->id();
+    $validated['status'] = true;
 
-        Lowongan::create($validated);
+    Lowongan::create($validated);
 
-        Alert::success('Success Title', 'Lowongan berhasil ditambahkan!');
-        return redirect()->route('admin.lowongan');
-    }
+    Alert::success('Sukses', 'Lowongan berhasil ditambahkan!');
+    return redirect()->route('admin.lowongan');
+}
+
 
     public function show($slug)
     {
@@ -94,7 +110,7 @@ public function LandingPage()
         return view('admin.lowongan.edit', compact('lowongan'));
     }
 
-    public function update(Request $request, Lowongan $lowongan)
+   public function update(Request $request, Lowongan $lowongan)
 {
     $validated = $request->validate([
         'judul' => 'required|string|max:255',
@@ -106,17 +122,32 @@ public function LandingPage()
         'kualifikasi' => 'required|string',
         'tanggung_jawab' => 'required|string',
         'tanggal_berakhir' => 'nullable|date|after_or_equal:today',
+    ], [
+        'judul.required' => 'Judul lowongan wajib diisi.',
+        'deskripsi.required' => 'Deskripsi lowongan wajib diisi.',
+        'lokasi.required' => 'Lokasi wajib diisi.',
+        'tipe.required' => 'Tipe pekerjaan wajib dipilih.',
+        'tipe.in' => 'Tipe pekerjaan harus berupa Full-time atau Part-time.',
+        'gaji.required' => 'Gaji wajib diisi.',
+        'gaji.integer' => 'Gaji harus berupa angka.',
+        'gaji.min' => 'Gaji tidak boleh kurang dari 0.',
+        'level.required' => 'Level pekerjaan wajib dipilih.',
+        'level.in' => 'Level harus salah satu dari Intern, Junior, Mid, atau Senior.',
+        'kualifikasi.required' => 'Kualifikasi wajib diisi.',
+        'tanggung_jawab.required' => 'Tanggung jawab wajib diisi.',
+        'tanggal_berakhir.date' => 'Tanggal berakhir harus berupa tanggal yang valid.',
+        'tanggal_berakhir.after_or_equal' => 'Tanggal berakhir tidak boleh sebelum hari ini.',
     ]);
 
     $validated['slug'] = Str::slug($request->judul);
-
     $validated['status'] = $request->has('status');
 
     $lowongan->update($validated);
 
-    Alert::success('Success Title', 'Lowongan berhasil di edit!');
+    Alert::success('Sukses', 'Lowongan berhasil diedit!');
     return redirect()->route('admin.lowongan');
 }
+
 
 
     public function destroy(Lowongan $lowongan)

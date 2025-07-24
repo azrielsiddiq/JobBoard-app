@@ -90,9 +90,9 @@
     </div>
 </header>
 
-<main class="px-6 md:px-10 mt-6">
+{{-- <main class="px-6 md:px-10 mt-6">
     {{ $slot }}
-</main>
+</main> --}}
 
 <script>
     const toggle = document.getElementById('menu-toggle');

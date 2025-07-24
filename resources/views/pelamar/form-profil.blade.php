@@ -3,7 +3,6 @@
 @section('title', 'Lengkapi Profil')
 
 @section('content')
-<x-nav-pelamar>
     <div class="min-h-screen bg-gray-100 py-10 px-4">
         <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-8 space-y-6">
 
@@ -147,5 +146,4 @@
             </form>
         </div>
     </div>
-</x-nav-pelamar>
 @endsection

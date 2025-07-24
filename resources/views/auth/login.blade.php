@@ -52,7 +52,7 @@
                     </div>
 
                     <!-- Remember + Forgot -->
-                    <div class="flex items-center justify-between mb-6">
+                    {{-- <div class="flex items-center justify-between mb-6">
                         <label for="remember_me" class="inline-flex items-center">
                             <input id="remember_me" type="checkbox"
                                 class="rounded border-gray-300 text-purple-600 shadow-sm focus:ring-purple-500"
@@ -64,7 +64,7 @@
                                 {{ __('Lupa password?') }}
                             </a>
                         @endif
-                    </div>
+                    </div> --}}
 
                     <!-- Submit -->
                     <button type="submit"

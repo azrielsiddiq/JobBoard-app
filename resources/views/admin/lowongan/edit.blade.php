@@ -23,10 +23,12 @@
                     @enderror
                 </div>
 
-                <div>
+                <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-600 mb-2">Deskripsi</label>
-                    <textarea name="deskripsi" rows="4"
-                        class="ckeditor w-full bg-gray-50 border text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 p-3 @error('deskripsi') border-red-500 @enderror">{{ old('deskripsi', $lowongan->deskripsi) }}</textarea>
+                    <input id="deskripsi" type="hidden" name="deskripsi"
+                        value="{{ old('deskripsi', $lowongan->deskripsi) }}">
+                    <trix-editor input="deskripsi"
+                        class="bg-white trix-content border text-sm rounded-xl @error('deskripsi') border-red-500 @enderror"></trix-editor>
                     @error('deskripsi')
                         <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
                     @enderror
@@ -87,19 +89,25 @@
                     </div>
                 </div>
 
-                <div>
+                {{-- Kualifikasi --}}
+                <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-600 mb-2">Kualifikasi</label>
-                    <textarea name="kualifikasi" rows="3"
-                        class="ckeditor w-full bg-gray-50 border text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 p-3 @error('kualifikasi') border-red-500 @enderror">{{ old('kualifikasi', $lowongan->kualifikasi) }}</textarea>
+                    <input id="kualifikasi" type="hidden" name="kualifikasi"
+                        value="{{ old('kualifikasi', $lowongan->kualifikasi) }}">
+                    <trix-editor input="kualifikasi"
+                        class="bg-white trix-content border text-sm rounded-xl @error('kualifikasi') border-red-500 @enderror"></trix-editor>
                     @error('kualifikasi')
                         <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <div>
+                {{-- Tanggung Jawab --}}
+                <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-600 mb-2">Tanggung Jawab</label>
-                    <textarea name="tanggung_jawab" rows="3"
-                        class="ckeditor w-full bg-gray-50 border text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 p-3 @error('tanggung_jawab') border-red-500 @enderror">{{ old('tanggung_jawab', $lowongan->tanggung_jawab) }}</textarea>
+                    <input id="tanggung_jawab" type="hidden" name="tanggung_jawab"
+                        value="{{ old('tanggung_jawab', $lowongan->tanggung_jawab) }}">
+                    <trix-editor input="tanggung_jawab"
+                        class="bg-white trix-content border text-sm rounded-xl @error('tanggung_jawab') border-red-500 @enderror"></trix-editor>
                     @error('tanggung_jawab')
                         <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
                     @enderror
